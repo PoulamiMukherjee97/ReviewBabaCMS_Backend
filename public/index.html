@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
+    <title>Content Management System</title>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-success mb-4">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="/">Content Management System</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+              <a class="nav-link active" aria-current="page" href="/cms/view/getMovieId">Get Movie ID</a>
+              <a class="nav-link active" href="/cms/view/updateMovieReview">Update Movie Review</a>
+              <a class="nav-link active" href="/cms/view/deleteMovieReview">Delete Movie Review</a>
+            </div>
+          </div>
+        </div>
+      </nav>
+    <div class="container">
+        <div class="alert-success my-3 p-2 text-center" id="response" style="display: none;"></div>
+        <form action="/cms" method="POST" onsubmit="formSubmit(event)" id="cms-form">
+            <div class="mb-3 border border-success">
+                <h3 class="p-2">Movie Details</h3>
+                <div class="row mx-0 mb-3">
+                    <div class="form-group px-3 col-12 col-md-4 mb-3 mb-md-0">
+                        <label for="name" class="mb-3">Name</label>
+                        <input type="text" id="name" name="name" class="form-control" />
+                    </div>
+                    <div class="form-group px-3 col-12 col-md-4 mb-3 mb-md-0">
+                        <label for="genre" class="mb-3">Genre</label>
+                        <input type="text" id="genre" name="genre" class="form-control" />
+                    </div>
+                    <div class="form-group px-3 col-12 col-md-4">
+                        <label for="lang" class="mb-3">Language</label>
+                        <input type="text" id="lang" name="lang" class="form-control" />
+                    </div>
+                </div>
+                <div class="row mx-0 mb-3">
+                    <div class="form-group px-3 col-12 col-md-4 pl-0 mb-3 mb-md-0">
+                        <label for="director" class="mb-3">Director</label>
+                        <input type="text" id="director" name="director" class="form-control" />
+                    </div>
+                    <div class="form-group px-3 col-12 col-md-4 mb-3 mb-md-0">
+                        <label for="actors" class="mb-3">Actors</label>
+                        <input type="text" id="actors" name="actors" class="form-control" />
+                    </div>
+                    <div class="form-group px-3 col-12 col-md-4">
+                        <label for="producer" class="mb-3">Producer</label>
+                        <input type="text" id="producer" name="producer" class="form-control" />
+                    </div>
+                </div>
+                <div class="row mx-0 mb-3">
+                    <div class="form-group px-3 col-12 col-md-6 mb-3 mb-md-0">
+                        <label for="image" class="mb-3">Poster Url</label>
+                        <input type="text" id="image" name="image" class="form-control" />
+                    </div>
+                    <div class="form-group px-3 col-12 col-md-6">
+                        <label for="reviewBy" class="mb-3">Reviewed by</label>
+                        <input type="text" id="reviewBy" name="reviewBy" class="form-control" />
+                    </div>
+                </div>
+            </div>
+            <div class="px-3 border border-success mb-4">
+                <h4 class="py-2">Review Details</h4>
+                <div class="form-group mb-3">
+                    <label for="plot" class="mb-3">Plot</label>
+                    <textarea type="text" id="plot" name="plot" class="form-control"></textarea>
+                </div>
+                <div class="form-group mb-3">
+                    <label for="review" class="mb-3">Review</label>
+                    <textarea type="text" id="review" name="review" class="form-control"></textarea>
+                </div>
+                <div class="row mx-0 mb-3">
+                    <div class="form-group col-12 col-md-6 px-0 mb-3 mb-md-0">
+                        <label for="gdpts" class="mb-3">Good Points</label>
+                        <textarea type="text" id="gdpts" name="gdpts" class="form-control"></textarea>
+                    </div>
+                    <div class="form-group col-12 col-md-6 px-0 px-md-3">
+                        <label for="bdpts" class="mb-3">Bad Points</label>
+                        <textarea type="text" id="bdpts" name="bdpts" class="form-control"></textarea>
+                    </div>
+                </div>
+                <div class="form-group mb-3">
+                    <label for="breaks" class="mb-3">Breaks</label>
+                    <textarea type="text" id="breaks" name="breaks" class="form-control"></textarea>
+                </div>
+                <div class="form-group mb-3">
+                    <label for="performance" class="mb-3">Performance</label>
+                    <textarea type="text" id="performance" name="performance" class="form-control"></textarea>
+                </div>
+                <div class="form-group mb-3">
+                    <label for="direction" class="mb-3">Direction</label>
+                    <textarea type="text" id="direction" name="direction" class="form-control"></textarea>
+                </div>
+                <div class="row mx-0 mb-3">
+                    <div class="form-group col-12 col-md-6 px-0 mb-3 mb-md-0">
+                        <label for="rating" class="mb-3">Rating</label>
+                        <input type="number" max="5" min="1" id="rating" name="rating" class="form-control" />
+                    </div>
+                    <div class="form-group col-12 col-md-6 px-0 px-md-3">
+                        <label for="imdbrating" class="mb-3">Imdb Rating</label>
+                        <input type="number" max="5" min="1" id="imdbrating" class="form-control" />
+                    </div>
+                </div>
+                <div class="form-group mb-3 d-flex justify-content-end mx-0 mx-md-3">
+                    <button type="submit" class="btn btn-success">Add Movie Review</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>
