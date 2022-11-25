@@ -6,7 +6,6 @@ const router = express.Router();
 
 router.post('/', createMovieReview);
 router.get('/', getMovieReview);
-router.get('/:name', getMovieReview);
 router.put('/:id', updateMovieReview);
 router.delete('/:id', deletedById);
 

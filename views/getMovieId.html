@@ -73,7 +73,7 @@
         }
       }
     };
-    req.open("GET", `/cms/${name.value}`, true);
+    req.open("GET", `/cms?name=${name.value}`, true);
     req.send();
     // req.setRequestHeader('Content-type', 'application/json');
   }

@@ -1,5 +1,5 @@
 
-const MovieModel = require('../models/cms');
+const MovieModel = require('../models/movie');
 
 exports.createMovieReview = ((req, res) => {
     const Movie = new MovieModel(req.body);
@@ -13,9 +13,9 @@ exports.createMovieReview = ((req, res) => {
     })
 })
 exports.getMovieReview = ((req, res) => {
-    console.log(req.params.name);
-    if (req.params.name) {
-        MovieModel.find({ name: req.params.name }, (err, data) => {
+    console.log(req.query);
+    if (Object.keys(req.query).length) {
+        MovieModel.find(req.query, (err, data) => {
             if (!err) {
                 if(data.length){
                     res.send(data[0]._id)
@@ -38,7 +38,19 @@ exports.getMovieReview = ((req, res) => {
 });
 
 exports.updateMovieReview = ((req, res) => {
-    MovieModel.updateOne({ _id: req.params.id }, { ...req.body }, (err, data) => {
+    let response = {};
+    MovieModel.find({_id: req.params.id}, (err, data) => {
+        if (!err) {
+            if(data.length){
+                response = {...data};
+            } else{
+                res.send({ message: 'Movie not present'})
+            }
+        } else {
+            res.send('Id not found');
+        }
+    })
+    MovieModel.updateOne({ _id: req.params.id }, { ...response, ...req.body }, (err, data) => {
         if (!err) {
             if (data.acknowledged && data.modifiedCount == 1) {
                 res.send({ message: "Updated Successfully" });

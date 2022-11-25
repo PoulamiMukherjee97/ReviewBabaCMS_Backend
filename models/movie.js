@@ -12,6 +12,8 @@ const Movie = new Schema({
     reviewBy: String,
     image: String,
     plot: String,
+    release:String,
+    reviews:Number,
     review: String,
     gdpts: [{ type: String }],
     bdpts: [{ type: String }],
