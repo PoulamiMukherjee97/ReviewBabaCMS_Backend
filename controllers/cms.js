@@ -17,10 +17,10 @@ exports.getMovieReview = ((req, res) => {
     if (Object.keys(req.query).length) {
         MovieModel.find(req.query, (err, data) => {
             if (!err) {
-                if(data.length){
+                if (data.length) {
                     res.send(data[0]._id)
-                } else{
-                    res.send({ message: 'Movie not present'})
+                } else {
+                    res.send({ message: 'Movie not present' })
                 }
             } else {
                 res.send('Id not found');
@@ -39,23 +39,20 @@ exports.getMovieReview = ((req, res) => {
 
 exports.updateMovieReview = ((req, res) => {
     let response = {};
-    MovieModel.find({_id: req.params.id}, (err, data) => {
+    MovieModel.find({ _id: req.params.id }, (err, data) => {
         if (!err) {
-            if(data.length){
-                response = {...data};
-            } else{
-                res.send({ message: 'Movie not present'})
-            }
+            response = { ...data };
         } else {
             res.send('Id not found');
         }
     })
-    MovieModel.updateOne({ _id: req.params.id }, { ...response, ...req.body }, (err, data) => {
+    console.log(response);
+    MovieModel.updateOne({ _id: req.params.id }, { ...req.body }, (err, data) => {
         if (!err) {
             if (data.acknowledged && data.modifiedCount == 1) {
                 res.send({ message: "Updated Successfully" });
-            } else{
-                res.send({ message: "Nothing to Update"})
+            } else {
+                res.send({ message: "Nothing to Update" })
             }
         } else {
             res.statusCode = 500;
