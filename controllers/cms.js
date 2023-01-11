@@ -37,16 +37,7 @@ exports.getMovieReview = ((req, res) => {
     }
 });
 
-exports.updateMovieReview = ((req, res) => {
-    let response = {};
-    MovieModel.find({ _id: req.params.id }, (err, data) => {
-        if (!err) {
-            response = { ...data };
-        } else {
-            res.send('Id not found');
-        }
-    })
-    console.log(response);
+exports.updateMovieReview = (req, res) => {
     MovieModel.updateOne({ _id: req.params.id }, { ...req.body }, (err, data) => {
         if (!err) {
             if (data.acknowledged && data.modifiedCount == 1) {
@@ -59,7 +50,7 @@ exports.updateMovieReview = ((req, res) => {
             res.send(err);
         }
     })
-});
+}
 
 exports.deletedById = ((req, res) => {
     MovieModel.remove({ _id: req.params.id }, (err, data) => {

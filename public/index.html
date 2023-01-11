@@ -16,22 +16,23 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-success mb-4">
         <div class="container-fluid">
-          <a class="navbar-brand" href="/">Content Management System</a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
-            <div class="navbar-nav">
-              <a class="nav-link active" aria-current="page" href="/cms/view/getMovieId">Get Movie ID</a>
-              <a class="nav-link active" href="/cms/view/updateMovieReview">Update Movie Review</a>
-              <a class="nav-link active" href="/cms/view/deleteMovieReview">Delete Movie Review</a>
+            <a class="navbar-brand" href="/">Content Management System</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+                aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
+                <div class="navbar-nav">
+                    <a class="nav-link active" aria-current="page" href="/cms/view/getMovieId">Get Movie ID</a>
+                    <a class="nav-link active" href="/cms/view/updateMovieReview">Update Movie Review</a>
+                    <a class="nav-link active" href="/cms/view/deleteMovieReview">Delete Movie Review</a>
+                </div>
             </div>
-          </div>
         </div>
-      </nav>
+    </nav>
     <div class="container">
         <div class="alert-success my-3 p-2 text-center" id="response" style="display: none;"></div>
-        <form action="/cms" method="POST" onsubmit="formSubmit(event)" id="cms-form">
+        <form action="/cms" method="POST" onsubmit="formSubmit(event, 'INSERT')" id="cms-form">
             <div class="mb-3 border border-success">
                 <h3 class="p-2">Movie Details</h3>
                 <div class="row mx-0 mb-3">
@@ -40,30 +41,25 @@
                         <input type="text" id="name" name="name" class="form-control" />
                     </div>
                     <div class="form-group px-3 col-12 col-md-4 mb-3 mb-md-0">
-                          <label class="mb-3" for="genre">Genre</label>
+                        <label for="reviewBy" class="mb-3">Runtime</label>
+                        <input type="text" id="runtime" name="runtime" class="form-control" />
+                    </div>
+                    <div class="form-group px-3 col-12 col-md-4 mb-3 mb-md-0">
+                        <label class="mb-3" for="genre">Genre</label>
                         <select class="form-control" id="genre" name="genre">
-                          <option value="Horror">Horror</option>
-                          <option value="Thriller">Thriller</option>
-                          <option value="Comedy">Comedy</option>
-                          <option value="Academy Award Winner">Academy Award Winner</option>
-                          <option value="Animated">Animated</option>
-                          <option value="Mystery">Mystery</option>
+                            <option value="Horror">Horror</option>
+                            <option value="Thriller">Thriller</option>
+                            <option value="Comedy">Comedy</option>
+                            <option value="Academy Award Winner">Academy Award Winner</option>
+                            <option value="Animated">Animated</option>
+                            <option value="Mystery">Mystery</option>
                         </select>
-                      </div>
-                    
-                    <div class="form-group px-3 col-12 col-md-4">
-                        <label for="lang" class="mb-3">Language</label>
-                        <input type="text" id="lang" name="lang" class="form-control" />
                     </div>
                 </div>
                 <div class="row mx-0 mb-3">
-                    <div class="form-group px-3 col-12 col-md-4 pl-0 mb-3 mb-md-0">
+                    <div class="form-group px-3 col-12 col-md-4 mb-3 mb-md-0">
                         <label for="director" class="mb-3">Director</label>
                         <input type="text" id="director" name="director" class="form-control" />
-                    </div>
-                    <div class="form-group px-3 col-12 col-md-4 mb-3 mb-md-0">
-                        <label for="actors" class="mb-3">Actors</label>
-                        <input type="text" id="actors" name="actors" class="form-control" />
                     </div>
                     <div class="form-group px-3 col-12 col-md-4">
                         <label for="producer" class="mb-3">Producer</label>
@@ -71,6 +67,10 @@
                     </div>
                 </div>
                 <div class="row mx-0 mb-3">
+                    <div class="form-group px-3 col-12 col-md-4 pl-0 mb-3">
+                        <label for="lang" class="mb-3">Language</label>
+                        <input type="text" id="lang" name="lang" class="form-control" />
+                    </div>
                     <div class="form-group px-3 col-12 col-md-4 mb-3 mb-md-0">
                         <label for="image" class="mb-3">Poster Url</label>
                         <input type="text" id="image" name="image" class="form-control" />
@@ -79,10 +79,29 @@
                         <label for="release" class="mb-3">Release Date</label>
                         <input type="text" id="release" name="release" class="form-control" />
                     </div>
-                    <div class="form-group px-3 col-12 col-md-4 mb-3 mb-md-0">
-                        <label for="reviewBy" class="mb-3">Reviewed by</label>
-                        <input type="text" id="reviewBy" name="reviewBy" class="form-control" />
+                </div>
+            </div>
+            <div class="px-3 border border-success mb-4">
+                <h4 class="py-2">Cast</h4>
+                <div id="cast">
+                    <div class="row mx-0 mb-3">
+                        <div class="form-group px-3 col-12 col-md-4 pl-0 mb-3">
+                            <label for="actorName" class="mb-3">Actor Name</label>
+                            <input type="text" id="actorName" name="actorName" class="form-control actor-el"></input>
+                        </div>
+                        <div class="form-group px-3 col-12 col-md-4 mb-3">
+                            <label for="actorCharacter" class="mb-3">Character</label>
+                            <input type="text" id="actorCharacter" name="actorCharacter"
+                                class="form-control actor-el"></input>
+                        </div>
+                        <div class="form-group px-3 col-12 col-md-4 mb-3">
+                            <label for="actorImage" class="mb-3">Image Url</label>
+                            <input type="text" id="actorImage" name="actorImage" class="form-control actor-el"></input>
+                        </div>
                     </div>
+                </div>
+                <div class="form-group mb-3 d-flex justify-content-end mx-0 mx-md-3">
+                    <button type="button" class="btn btn-success" onclick="addActor(event)">Add Actor</button>
                 </div>
             </div>
             <div class="px-3 border border-success mb-4">
@@ -117,23 +136,55 @@
                     <label for="direction" class="mb-3">Direction</label>
                     <textarea type="text" id="direction" name="direction" class="form-control"></textarea>
                 </div>
+
+            </div>
+            <div class="px-3 border border-success mb-4">
+                <h4 class="py-2">Rating</h4>
                 <div class="row mx-0 mb-3">
                     <div class="form-group col-12 col-md-4 mb-3 mb-md-0 px-0">
-                        <label for="rating" class="mb-3">Rating</label>
-                        <input type="number" max="5" min="1" id="rating" name="rating" class="form-control" />
+                        <label for="ratingPlot" class="mb-3">Plot</label>
+                        <input type="number" max="5" min="1" id="ratingPlot" name="ratingPlot" class="form-control" />
                     </div>
-                    <div class="form-group col-12 col-md-4 px-md-3 px-0 mb-3 mb-md-0">
-                        <label for="imdbrating" class="mb-3">Imdb Rating</label>
-                        <input type="number" max="5" min="1" id="imdbrating" class="form-control" />
+                    <div class="form-group col-12 col-md-4 px-md-3 px-0 mb-3">
+                        <label for="ratingActing" class="mb-3">Acting</label>
+                        <input type="number" max="5" min="1" id="ratingActing" name="ratingActing"
+                            class="form-control" />
                     </div>
-                    <div class="form-group col-12 col-md-4 px-0 mb-3 mb-md-0">
-                        <label for="reviews" class="mb-3">Number of reviews</label>
-                        <input type="number" id="reviews" class="form-control" />
+                    <div class="form-group col-12 col-md-4 px-md-3 px-0 mb-3">
+                        <label for="ratingScreenplay" class="mb-3">Screenplay</label>
+                        <input type="number" max="5" min="1" id="ratingScreenplay" name="ratingScreenplay"
+                            class="form-control" />
+                    </div>
+                    <h5 class="my-4 px-0">IMDB</h5>
+                    <div class="form-group col-12 col-md-4 mb-3 px-0">
+                        <label for="imdbRating" class="mb-3">IMDB Rating</label>
+                        <input type="text" max="10" min="1" id="imdbRating" class="form-control" />
+                    </div>
+                    <div class="form-group col-12 col-md-4 px-0 px-md-3 mb-3">
+                        <label for="imdbReview" class="mb-3">Number of IMDB reviews</label>
+                        <input type="text" id="imdbReview" class="form-control" />
+                    </div>
+                    <div class="form-group col-12 col-md-4 px-0 px-md-3 mb-3">
+                        <label for="imdbLink" class="mb-3">IMDB Link</label>
+                        <input type="text" id="imdbLink" class="form-control" />
+                    </div>
+                    <h5 class="my-4 px-0">Rotten Tomatoes (RT)</h5>
+                    <div class="form-group col-12 col-md-4 mb-3 px-0">
+                        <label for="rtRating" class="mb-3">RT Rating</label>
+                        <input type="text" max="10" min="1" id="rtRating" class="form-control" />
+                    </div>
+                    <div class="form-group col-12 col-md-4 px-0 px-md-3 mb-3">
+                        <label for="rtReview" class="mb-3">Number of RT reviews</label>
+                        <input type="text" id="rtReview" class="form-control" />
+                    </div>
+                    <div class="form-group col-12 col-md-4 px-0 px-md-3 mb-3">
+                        <label for="rtLink" class="mb-3">RT Link</label>
+                        <input type="text" id="rtLink" class="form-control" />
                     </div>
                 </div>
-                <div class="form-group mb-3 d-flex justify-content-end mx-0 mx-md-3">
-                    <button type="submit" class="btn btn-success">Add Movie Review</button>
-                </div>
+            </div>
+            <div class="form-group mb-3 d-flex justify-content-end mx-0">
+                <button type="submit" class="btn btn-success">Add Movie Review</button>
             </div>
         </form>
     </div>
